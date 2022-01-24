@@ -16,7 +16,7 @@
         <a href="index.html" class="navbar-brand">
           <small>
             <i class="fa fa-leaf"></i>
-            Ace Admin
+            在线视频课程
           </small>
         </a>
       </div>
@@ -478,9 +478,11 @@
 export default {
   name: "Admin",
   mounted() {
+    let _this =this
     $('body').removeClass('login-layout light-login');
     $('body').attr('class', 'no-skin');
     console.log('admin')
+    _this.activeSidebar(_this.$route.name.replace("/","-")+"-sidebar");
   },
   methods: {
     activeSidebar(id) {
@@ -500,6 +502,17 @@ export default {
       $("#"+id).siblings().find("li").removeClass("active")
       $("#"+id).addClass("active open")
       // $("#"+id).find("li").addClass("active")
+    }
+  },
+  watch: {
+    $route: {
+      handler(val,oldVal){
+        console.log("-->页面跳转：",val,oldVal)
+        let _this = this
+        _this.$nextTick(function () {
+          _this.activeSidebar(_this.$route.name.replace("/","-")+"-sidebar");
+        })
+      }
     }
   }
 }
