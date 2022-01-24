@@ -25,6 +25,10 @@ const routes = [
       {
         path: 'welcome', //注意这里不能加斜杠
         component: () => import('../views/admin/Welcome')
+      },
+      {
+        path: 'chapter',
+        component: () => import('../views/admin/Chapter')
       }
     ]
   }
