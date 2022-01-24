@@ -322,9 +322,7 @@
   <div class="main-container ace-save-state" id="main-container">
 
 
-    <div id="sidebar" class="sidebar                  responsive                    ace-save-state">
-
-
+    <div id="sidebar" class="sidebar responsive ace-save-state">
       <div class="sidebar-shortcuts" id="sidebar-shortcuts">
         <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
           <button class="btn btn-success">
@@ -357,7 +355,15 @@
 
       <ul class="nav nav-list">
 
-        <li class="active open">
+        <li class="" id="welcome-sidebar">
+          <router-link to="/admin/welcome">
+            <i class="menu-icon fa fa-tachometer"></i>
+            <span class="menu-text">欢迎</span>
+          </router-link>
+          <b class="arrow"></b>
+        </li>
+
+        <li class="">
           <a href="#" class="dropdown-toggle">
             <i class="menu-icon fa fa-list"></i>
             <span class="menu-text"> 系统管理 </span>
@@ -373,7 +379,6 @@
                 <i class="menu-icon fa fa-caret-right"></i>
                 用户管理
               </a>
-
               <b class="arrow"></b>
             </li>
 
@@ -388,6 +393,27 @@
           </ul>
         </li>
 
+        <li class="active open">
+          <a href="#" class="dropdown-toggle">
+            <i class="menu-icon fa fa-list"></i>
+            <span class="menu-text"> 业务管理 </span>
+
+            <b class="arrow fa fa-angle-down"></b>
+          </a>
+
+          <b class="arrow"></b>
+
+          <ul class="submenu">
+            <li class="active" id="business-chapter-sidebar">
+              <router-link to="/admin/business/chapter">
+                <i class="menu-icon fa fa-caret-right"></i>
+                大章管理
+              </router-link>
+              <b class="arrow"></b>
+            </li>
+
+          </ul>
+        </li>
 
       </ul><!-- /.nav-list -->
 
@@ -455,6 +481,20 @@ export default {
     $('body').removeClass('login-layout light-login');
     $('body').attr('class', 'no-skin');
     console.log('admin')
+  },
+  methods: {
+    activeSidebar(id) {
+      //兄弟菜单去掉active样式，自身增加active样式
+      $("#"+id).siblings().removeClass("active")
+      $("#"+id).siblings().find("li").removeClass("active")
+      $("#"+id).addClass("active")
+
+      let parentLi = $("#"+id).parents("li")
+      if (parentLi) {
+        parentLi.siblings().removeClass("open active")
+        parentLi.addClass("open active")
+      }
+    }
   }
 }
 </script>

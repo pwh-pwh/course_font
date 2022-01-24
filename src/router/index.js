@@ -27,7 +27,7 @@ const routes = [
         component: () => import('../views/admin/Welcome')
       },
       {
-        path: 'chapter',
+        path: 'business/chapter',
         component: () => import('../views/admin/Chapter')
       }
     ]
