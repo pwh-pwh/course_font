@@ -356,14 +356,14 @@
       <ul class="nav nav-list">
 
         <li class="" id="welcome-sidebar">
-          <router-link to="/admin/welcome">
+          <router-link to="/welcome">
             <i class="menu-icon fa fa-tachometer"></i>
             <span class="menu-text">欢迎</span>
           </router-link>
           <b class="arrow"></b>
         </li>
 
-        <li class="">
+        <li class="" id="sys-sidebar" @click="openParentSidebar('sys-sidebar')">
           <a href="#" class="dropdown-toggle">
             <i class="menu-icon fa fa-list"></i>
             <span class="menu-text"> 系统管理 </span>
@@ -393,7 +393,7 @@
           </ul>
         </li>
 
-        <li class="active open">
+        <li class="active open" id="bs-sidebar" @click="openParentSidebar('bs-sidebar')">
           <a href="#" class="dropdown-toggle">
             <i class="menu-icon fa fa-list"></i>
             <span class="menu-text"> 业务管理 </span>
@@ -405,7 +405,7 @@
 
           <ul class="submenu">
             <li class="active" id="business-chapter-sidebar">
-              <router-link to="/admin/business/chapter">
+              <router-link to="/business/chapter">
                 <i class="menu-icon fa fa-caret-right"></i>
                 大章管理
               </router-link>
@@ -494,6 +494,12 @@ export default {
         parentLi.siblings().removeClass("open active")
         parentLi.addClass("open active")
       }
+    },
+    openParentSidebar(id) {
+      $("#"+id).siblings().removeClass("active open")
+      $("#"+id).siblings().find("li").removeClass("active")
+      $("#"+id).addClass("active open")
+      // $("#"+id).find("li").addClass("active")
     }
   }
 }
