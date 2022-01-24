@@ -979,6 +979,17 @@ export default {
   name: "Chapter",
   mounted() {
     // this.$parent.activeSidebar("business-chapter-sidebar")
+    let _this = this
+    console.log("chapter")
+    _this.getChapterList()
+  },
+  methods: {
+    getChapterList() {
+      let _this = this
+      _this.axios.get("http://localhost:9002/business/admin/chapter/list").then((response)=> {
+        console.log(response.data)
+      })
+    }
   }
 }
 </script>
