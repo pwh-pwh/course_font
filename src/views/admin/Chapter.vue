@@ -1,12 +1,12 @@
 <template>
 <div id="chapter">
 <p>
-  <button class="btn btn-white btn-default btn-round" @click="getChapterList()">
+  <button class="btn btn-white btn-default btn-round" @click="getChapterList(1)">
     <i class="ace-icon fa fa-refresh red2"></i>
     刷新
   </button>
 </p>
-
+<pagination ref="pagination" :list="getChapterList"></pagination>
 
   <table id="simple-table" class="table  table-bordered table-hover">
     <thead>
@@ -87,6 +87,8 @@
 </template>
 
 <script>
+import Pagination from "@/components/pagination";
+
 export default {
   name: "Chapter",
   data() {
@@ -94,21 +96,26 @@ export default {
       chapters: []
     }
   },
+  components: {
+    Pagination
+  },
   mounted() {
     // this.$parent.activeSidebar("business-chapter-sidebar")
     let _this = this
+    _this.$refs.pagination.size=5;
     console.log("chapter")
-    _this.getChapterList()
+    _this.getChapterList(1)
   },
   methods: {
-    getChapterList() {
+    getChapterList(page) {
       let _this = this
       _this.axios.post("http://localhost:9000/business/admin/chapter/list",{
-        current: 1,
-        size: 1
+        current: page,
+        size: _this.$refs.pagination.size
       }).then((response)=> {
         console.log(response.data)
         _this.chapters = response.data.records
+        _this.$refs.pagination.render(page,response.data.total)
       })
     }
   }
