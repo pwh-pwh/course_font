@@ -152,9 +152,9 @@ export default {
         current: page,
         size: _this.$refs.pagination.size
       }).then((response)=> {
-        console.log(response.data)
-        _this.chapters = response.data.records
-        _this.$refs.pagination.render(page,response.data.total)
+        console.log(response.data.content)
+        _this.chapters = response.data.content.records
+        _this.$refs.pagination.render(page,response.data.content.total)
       })
     },
     add() {
@@ -164,7 +164,7 @@ export default {
     save() {
       let _this = this
       _this.axios.post("http://localhost:9000/business/admin/chapter/save",_this.chapter).then((response)=> {
-        console.log("保存",response.data)
+        console.log("保存",response.data.content)
         $(".modal").modal("hide")
       })
     }
