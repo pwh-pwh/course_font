@@ -22,7 +22,8 @@ module.exports = {
     */
     rules: {
        'no-undef': 'off',
-       'vue/require-v-for-key': 'off'
+       'vue/require-v-for-key': 'off',
+        'no-unused-vars': 'off'
     },
     parserOptions: {
         parser: 'babel-eslint'
