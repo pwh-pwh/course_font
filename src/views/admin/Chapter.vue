@@ -1,5 +1,13 @@
 <template>
 <div id="chapter">
+<p>
+  <button class="btn btn-white btn-default btn-round" @click="getChapterList()">
+    <i class="ace-icon fa fa-refresh red2"></i>
+    刷新
+  </button>
+</p>
+
+
   <table id="simple-table" class="table  table-bordered table-hover">
     <thead>
     <tr>
@@ -95,9 +103,12 @@ export default {
   methods: {
     getChapterList() {
       let _this = this
-      _this.axios.get("http://localhost:9002/business/admin/chapter/list").then((response)=> {
+      _this.axios.post("http://localhost:9000/business/admin/chapter/list",{
+        current: 1,
+        size: 1
+      }).then((response)=> {
         console.log(response.data)
-        _this.chapters = response.data
+        _this.chapters = response.data.records
       })
     }
   }
