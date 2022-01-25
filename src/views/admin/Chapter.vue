@@ -89,7 +89,7 @@
     </tbody>
   </table>
 
-  <div class="modal fade" tabindex="-1" role="dialog">
+  <div id="form-modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -159,13 +159,20 @@ export default {
     },
     add() {
       // let _this = this
-      $(".modal").modal("show");
+      $("#form-modal").modal("show");
     },
     save() {
       let _this = this
       _this.axios.post("http://localhost:9000/business/admin/chapter/save",_this.chapter).then((response)=> {
-        console.log("保存",response.data.content)
-        $(".modal").modal("hide")
+        let resp = response.data
+        console.log(resp)
+        if (resp.success) {
+          console.log("保存",response.data.content)
+          $("#form-modal").modal("hide")
+          //刷新
+          _this.getChapterList(1)
+        }
+
       })
     }
   }
