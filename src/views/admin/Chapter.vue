@@ -128,6 +128,7 @@ export default {
           $("#form-modal").modal("hide")
           //刷新
           _this.getChapterList(1)
+          toast.success("保存成功")
         }
 
       })
@@ -159,11 +160,7 @@ export default {
                 }
               })
 
-          Swal.fire(
-              'Deleted!',
-              'Your file has been deleted.',
-              'success'
-          )
+          toast.success("删除成功")
         }
       })
 
