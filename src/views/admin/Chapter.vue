@@ -105,10 +105,12 @@ export default {
   methods: {
     getChapterList(page) {
       let _this = this
+      Loading.show()
       _this.axios.post("http://localhost:9000/business/admin/chapter/list",{
         current: page,
         size: _this.$refs.pagination.size
       }).then((response)=> {
+        Loading.hide()
         console.log(response.data.content)
         _this.chapters = response.data.content.records
         _this.$refs.pagination.render(page,response.data.content.total)
@@ -120,8 +122,10 @@ export default {
     },
     save() {
       let _this = this
+      Loading.show()
       _this.axios.post("http://localhost:9000/business/admin/chapter/save",_this.chapter).then((response)=> {
         let resp = response.data
+        Loading.hide()
         console.log(resp)
         if (resp.success) {
           console.log("保存",response.data.content)
@@ -151,9 +155,10 @@ export default {
         confirmButtonText: '确认删除!'
       }).then((result) => {
         if (result.isConfirmed) {
-
+          Loading.show()
           _this.axios.delete("http://localhost:9000/business/admin/chapter/delete/"+id)
               .then((respond)=> {
+                Loading.hide()
                 let resp = respond.data
                 if (resp.success) {
                   _this.getChapterList(1)
