@@ -145,29 +145,21 @@ export default {
     del(id) {
       let _this = this
 
-      Swal.fire({
-        title: '确认删除吗?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: '确认删除!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Loading.show()
-          _this.axios.delete("http://localhost:9000/business/admin/chapter/delete/"+id)
-              .then((respond)=> {
-                Loading.hide()
-                let resp = respond.data
-                if (resp.success) {
-                  _this.getChapterList(1)
-                }
-              })
+      Confirm.show("确认删除吗?",function () {
+        Loading.show()
+        _this.axios.delete("http://localhost:9000/business/admin/chapter/delete/"+id)
+            .then((respond)=> {
+              Loading.hide()
+              let resp = respond.data
+              if (resp.success) {
+                _this.getChapterList(1)
+              }
+            })
 
-          toast.success("删除成功")
-        }
+        toast.success("删除成功")
       })
+
+
 
     }
   }
