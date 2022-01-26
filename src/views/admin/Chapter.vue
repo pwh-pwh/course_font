@@ -139,13 +139,34 @@ export default {
     },
     del(id) {
       let _this = this
-      _this.axios.delete("http://localhost:9000/business/admin/chapter/delete/"+id)
-      .then((respond)=> {
-        let resp = respond.data
-        if (resp.success) {
-          _this.getChapterList(1)
+
+      Swal.fire({
+        title: '确认删除吗?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '确认删除!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+          _this.axios.delete("http://localhost:9000/business/admin/chapter/delete/"+id)
+              .then((respond)=> {
+                let resp = respond.data
+                if (resp.success) {
+                  _this.getChapterList(1)
+                }
+              })
+
+          Swal.fire(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+          )
         }
       })
+
     }
   }
 }
