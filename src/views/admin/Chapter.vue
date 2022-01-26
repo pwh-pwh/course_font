@@ -32,55 +32,12 @@
       <td>{{chapter.courseId}}</td>
       <td>
         <div class="hidden-sm hidden-xs btn-group">
-          <button class="btn btn-xs btn-success">
-            <i class="ace-icon fa fa-check bigger-120"></i>
-          </button>
-
-          <button class="btn btn-xs btn-info">
+          <button class="btn btn-xs btn-info" @click="edit(chapter)">
             <i class="ace-icon fa fa-pencil bigger-120"></i>
           </button>
-
-          <button class="btn btn-xs btn-danger">
+          <button class="btn btn-xs btn-danger" @click="del(chapter.id)">
             <i class="ace-icon fa fa-trash-o bigger-120"></i>
           </button>
-
-          <button class="btn btn-xs btn-warning">
-            <i class="ace-icon fa fa-flag bigger-120"></i>
-          </button>
-        </div>
-
-        <div class="hidden-md hidden-lg">
-          <div class="inline pos-rel">
-            <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
-              <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
-            </button>
-
-            <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-              <li>
-                <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-																			<span class="blue">
-																				<i class="ace-icon fa fa-search-plus bigger-120"></i>
-																			</span>
-                </a>
-              </li>
-
-              <li>
-                <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
-																			<span class="green">
-																				<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-																			</span>
-                </a>
-              </li>
-
-              <li>
-                <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
-																			<span class="red">
-																				<i class="ace-icon fa fa-trash-o bigger-120"></i>
-																			</span>
-                </a>
-              </li>
-            </ul>
-          </div>
         </div>
       </td>
 
@@ -173,6 +130,21 @@ export default {
           _this.getChapterList(1)
         }
 
+      })
+    },
+    edit(chapter) {
+      let _this = this
+      _this.chapter = chapter
+      $("#form-modal").modal("show");
+    },
+    del(id) {
+      let _this = this
+      _this.axios.delete("http://localhost:9000/business/admin/chapter/delete/"+id)
+      .then((respond)=> {
+        let resp = respond.data
+        if (resp.success) {
+          _this.getChapterList(1)
+        }
       })
     }
   }
