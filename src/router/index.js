@@ -31,6 +31,11 @@ const routes = [
         name: 'business/chapter',
         path: 'business/chapter',
         component: () => import('../views/admin/Chapter')
+      },
+      {
+        name: 'business/section',
+        path: 'business/section',
+        component: () => import('../views/admin/Section')
       }
     ]
   }
