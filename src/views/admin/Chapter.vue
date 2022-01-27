@@ -106,7 +106,7 @@ export default {
     getChapterList(page) {
       let _this = this
       Loading.show()
-      _this.axios.post("http://localhost:9000/business/admin/chapter/list",{
+      _this.axios.post(process.env.VUE_APP_SERVER+"/business/admin/chapter/list",{
         current: page,
         size: _this.$refs.pagination.size
       }).then((response)=> {
@@ -130,7 +130,7 @@ export default {
       }
 
       Loading.show()
-      _this.axios.post("http://localhost:9000/business/admin/chapter/save",_this.chapter).then((response)=> {
+      _this.axios.post(process.env.VUE_APP_SERVER+"/business/admin/chapter/save",_this.chapter).then((response)=> {
         let resp = response.data
         Loading.hide()
         console.log(resp)
@@ -154,7 +154,7 @@ export default {
 
       Confirm.show("确认删除吗?",function () {
         Loading.show()
-        _this.axios.delete("http://localhost:9000/business/admin/chapter/delete/"+id)
+        _this.axios.delete(process.env.VUE_APP_SERVER+"/business/admin/chapter/delete/"+id)
             .then((respond)=> {
               Loading.hide()
               let resp = respond.data
