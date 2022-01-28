@@ -1,28 +1,31 @@
 <template>
-  <div id="section">
+  <div id="course">
     <p>
       <button class="btn btn-white btn-default btn-round" @click="add">
         <i class="ace-icon fa fa-edit red2"></i>
         新增
       </button>
       &nbsp;
-      <button class="btn btn-white btn-default btn-round" @click="getSectionList(1)">
+      <button class="btn btn-white btn-default btn-round" @click="getCourseList(1)">
         <i class="ace-icon fa fa-refresh red2"></i>
         刷新
       </button>
     </p>
-    <pagination ref="pagination" :list="getSectionList"></pagination>
+    <pagination ref="pagination" :list="getCourseList"></pagination>
 
     <table id="simple-table" class="table  table-bordered table-hover">
       <thead>
       <tr>
         <th>ID</th>
-        <th>标题</th>
-        <th>课程ID</th>
-        <th>大章ID</th>
-        <th>视频</th>
+        <th>名称</th>
+        <th>课程ID概述</th>
         <th>时长</th>
+        <th>价格</th>
+        <th>图片</th>
+        <th>等级</th>
         <th>收费</th>
+        <th>状态</th>
+        <th>报名数</th>
         <th>顺序</th>
         <th>创建时间</th>
         <th>修改时间</th>
@@ -31,24 +34,27 @@
 
       <tbody>
 
-      <tr v-for="section in sections">
-        <td>{{section.id}}</td>
-        <td>{{section.title}}</td>
-        <td>{{section.courseId}}</td>
-        <td>{{section.chapterId}}</td>
-        <td>{{section.video}}</td>
-        <td>{{section.time}}</td>
-        <td>{{section.charge}}</td>
-        <td>{{section.sort}}</td>
-        <td>{{section.createAt}}</td>
-        <td>{{section.updateAt}}</td>
+      <tr v-for="course in courses">
+        <td>{{course.id}}</td>
+        <td>{{course.name}}</td>
+        <td>{{course.summary}}</td>
+        <td>{{course.time}}</td>
+        <td>{{course.price}}</td>
+        <td>{{course.image}}</td>
+        <td>{{course.level}}</td>
+        <td>{{course.charge}}</td>
+        <td>{{course.status}}</td>
+        <td>{{course.enroll}}</td>
+        <td>{{course.sort}}</td>
+        <td>{{course.createAt}}</td>
+        <td>{{course.updateAt}}</td>
 
         <td>
           <div class="hidden-sm hidden-xs btn-group">
-            <button class="btn btn-xs btn-info" @click="edit(section)">
+            <button class="btn btn-xs btn-info" @click="edit(course)">
               <i class="ace-icon fa fa-pencil bigger-120"></i>
             </button>
-            <button class="btn btn-xs btn-danger" @click="del(section.id)">
+            <button class="btn btn-xs btn-danger" @click="del(course.id)">
               <i class="ace-icon fa fa-trash-o bigger-120"></i>
             </button>
           </div>
@@ -70,50 +76,65 @@
             <form class="form-horizontal">
 
               <div class="form-group">
-                <label class="col-sm-2 control-label">标题</label>
+                <label class="col-sm-2 control-label">名称</label>
                 <div class="col-sm-10">
-                  <input type="text" v-model="section.title" class="form-control" placeholder="标题">
+                  <input type="text" v-model="course.name" class="form-control" placeholder="名称">
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="col-sm-2 control-label">课程ID</label>
+                <label class="col-sm-2 control-label">概述</label>
                 <div class="col-sm-10">
-                  <input type="text" v-model="section.courseId" class="form-control" placeholder="课程ID">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="col-sm-2 control-label">大章ID</label>
-                <div class="col-sm-10">
-                  <input type="text" v-model="section.chapterId" class="form-control" placeholder="大章ID">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="col-sm-2 control-label">视频</label>
-                <div class="col-sm-10">
-                  <input type="text" v-model="section.video" class="form-control" placeholder="视频">
+                  <input type="text" v-model="course.summary" class="form-control" placeholder="概述">
                 </div>
               </div>
 
               <div class="form-group">
                 <label class="col-sm-2 control-label">时长</label>
                 <div class="col-sm-10">
-                  <input type="text" v-model="section.time" class="form-control" placeholder="时长">
+                  <input type="text" v-model="course.time" class="form-control" placeholder="时长">
                 </div>
               </div>
 
               <div class="form-group">
+                <label class="col-sm-2 control-label">价格</label>
+                <div class="col-sm-10">
+                  <input type="text" v-model="course.price" class="form-control" placeholder="价格">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label">图片</label>
+                <div class="col-sm-10">
+                  <input type="text" v-model="course.image" class="form-control" placeholder="图片">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label">等级</label>
+                <div class="col-sm-10">
+                  <input type="text" v-model="course.level" class="form-control" placeholder="等级">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label">收费</label>
+                <div class="col-sm-10">
+                  <input type="text" v-model="course.charge" class="form-control" placeholder="收费">
+                </div>
+              </div>
+
+
+              <div class="form-group">
                 <label class="col-sm-2 control-label">创建时间</label>
                 <div class="col-sm-10">
-                  <input type="text" v-model="section.createAt" class="form-control" placeholder="创建时间">
+                  <input type="text" v-model="course.createAt" class="form-control" placeholder="创建时间">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">收费</label>
                 <div class="col-sm-10">
-                  <select v-model="section.charge" class="form-control">
+                  <select v-model="course.charge" class="form-control">
                     <option v-for="o in CHARGE" v-bind:value="o.key">
                       {{o.value}}
                     </option>
@@ -124,7 +145,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">更新时间</label>
                 <div class="col-sm-10">
-                  <input type="text" v-model="section.updatedAt" class="form-control" placeholder="更新时间">
+                  <input type="text" v-model="course.updatedAt" class="form-control" placeholder="更新时间">
                 </div>
               </div>
 
@@ -145,11 +166,11 @@
 import Pagination from "@/components/pagination";
 
 export default {
-  name: "Section",
+  name: "Course",
   data() {
     return {
-      sections: [],
-      section: {},
+      courses: [],
+      course: {},
       CHARGE: [{key:"C",value:"收费"},{key:"F",value:"免费"}]
     }
   },
@@ -157,23 +178,23 @@ export default {
     Pagination
   },
   mounted() {
-    // this.$parent.activeSidebar("business-section-sidebar")
+    // this.$parent.activeSidebar("business-course-sidebar")
     let _this = this
     _this.$refs.pagination.size=5;
-    console.log("section")
-    _this.getSectionList(1)
+    console.log("course")
+    _this.getCourseList(1)
   },
   methods: {
-    getSectionList(page) {
+    getCourseList(page) {
       let _this = this
       Loading.show()
-      _this.axios.post(process.env.VUE_APP_SERVER+"/business/admin/section/list",{
+      _this.axios.post(process.env.VUE_APP_SERVER+"/business/admin/course/list",{
         current: page,
         size: _this.$refs.pagination.size
       }).then((response)=> {
         Loading.hide()
         console.log(response.data.content)
-        _this.sections = response.data.content.records
+        _this.courses = response.data.content.records
         _this.$refs.pagination.render(page,response.data.content.total)
       })
     },
@@ -191,7 +212,7 @@ export default {
       }*/
 
       Loading.show()
-      _this.axios.post(process.env.VUE_APP_SERVER+"/business/admin/section/save",_this.section).then((response)=> {
+      _this.axios.post(process.env.VUE_APP_SERVER+"/business/admin/course/save",_this.course).then((response)=> {
         let resp = response.data
         Loading.hide()
         console.log(resp)
@@ -199,15 +220,15 @@ export default {
           console.log("保存",response.data.content)
           $("#form-modal").modal("hide")
           //刷新
-          _this.getSectionList(1)
+          _this.getCourseList(1)
           toast.success("保存成功")
         }
 
       })
     },
-    edit(section) {
+    edit(course) {
       let _this = this
-      _this.section = section
+      _this.course = course
       $("#form-modal").modal("show");
     },
     del(id) {
@@ -215,12 +236,12 @@ export default {
 
       Confirm.show("确认删除吗?",function () {
         Loading.show()
-        _this.axios.delete(process.env.VUE_APP_SERVER+"/business/admin/section/delete/"+id)
+        _this.axios.delete(process.env.VUE_APP_SERVER+"/business/admin/course/delete/"+id)
             .then((respond)=> {
               Loading.hide()
               let resp = respond.data
               if (resp.success) {
-                _this.getSectionList(1)
+                _this.getCourseList(1)
               }
             })
 
